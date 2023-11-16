@@ -1,0 +1,8 @@
+:root {
+  --blue-gra: linear-gradient(to right, blue, pink);;
+  --btn-color: bisque;
+}
+
+body {
+  background: var(--blue-gra);
+}

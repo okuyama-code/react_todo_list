@@ -1,0 +1,30 @@
+.app {
+  text-align: center;
+  margin-top: 10px;
+
+  input {
+    border: 2px solid rgb(154, 144, 144);
+    background: rgb(243, 198, 198);
+  }
+
+  button {
+    background-color: var(--btn-color);
+    margin-left: 5px;
+    border-radius: 5px;
+  }
+}
+
+.todo-info {
+  margin-top: 10px;
+}
+
+.todo-list-item {
+  margin-top: 10px;
+  font-size: 2rem;
+
+  input {
+    transform: scale(2); /* 2倍の大きさに変更 */
+    margin-right: 8px; /* 必要に応じて調整 */
+  }
+}
+

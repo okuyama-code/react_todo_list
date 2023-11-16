@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import './App.css';
+import './App.scss';
 import TodoList from './components/TodoList';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -47,21 +47,26 @@ function App() {
     setTodos(newTodos);
   }
 
+  // filter() は Array インスタンスのメソッドで、指定された配列の中から指定された関数で実装されているテストに合格した要素だけを抽出したシャローコピーを作成します。
+  // 今回のfilter関数はfalseになるものだけを残していく。trueがチェック済み(todo.completed)　false(!todo.completed)
+  const unfinishedTodosCount = todos.filter((todo) => !todo.completed).length;
+  const allTodosCount = todos.length;
+  const completedTodosCount = allTodosCount - unfinishedTodosCount
+
   return (
-    <>
+    <div className='app'>
       {/* todosという名前で{todos}(変数)をpropsとしてTodoListに渡すことができる。値はTodoListで受け取る。 */}
-      <TodoList todos={todos} toggleTodo={toggleTodo} />
       <input type="text" ref={todoNameRef} />
       {/* 追加するにはbuttonタグにonClickを足す */}
-      <button onClick={handleAddTask}>タスクを追加</button>
+      <button onClick={handleAddTask}>追加</button>
       <button onClick={handleClear}>完了したタスクを削除</button>
-      <div>
-        {/* filter() は Array インスタンスのメソッドで、指定された配列の中から指定された関数で実装されているテストに合格した要素だけを抽出したシャローコピーを作成します。 */}
-        {/* 今回のfilter関数はfalseになるものだけを残していく。trueがチェック済み(todo.completed)
-        false(!todo.completed) */}
-        残りのタスク:{ todos.filter((todo) => !todo.completed).length }
+      <TodoList todos={todos} toggleTodo={toggleTodo} />
+      <div class="todo-info">
+        <div>すべてのタスク:{ allTodosCount }</div>
+        <div>未完了:{ unfinishedTodosCount }</div>
+        <div>完了のタスク:{ completedTodosCount }</div>
       </div>
-    </>
+    </div>
   );
 }
 

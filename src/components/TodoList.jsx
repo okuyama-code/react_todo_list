@@ -7,7 +7,7 @@ const TodoList = ({ todos, toggleTodo }) => {
   // console.log(todos[1]);
   // console.log(todos[2]);
   return (
-    <div>
+    <div className='todo-list'>
       {todos.map((todo) => (
         <Todo todo={todo} key={todo.id} toggleTodo={toggleTodo} />
       ))}
