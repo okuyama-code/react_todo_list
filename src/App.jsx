@@ -7,10 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 function App() {
   // これから追加していくタスクを意味している。タスクとはオブジェクト(name, id, completedというフィールドを用意しているもの全体をオブジェクトという)。変数としてtodos(オブジェクト)を用意する。この変数を監視、管理するのがuseState。変数todosの値が更新されるとページをリロードしてページを更新してくれる。無駄なレンダリングを防ぐ役割。
   // setTodosはtodosの中身を更新したり追加したりする役割
-  const [todos, setTodos] = useState([
-    {id: 1, name: "todo1", completed: false },
-    {id: 2, name: "todo2", completed: true },
-  ]);
+  const [todos, setTodos] = useState([]);
 
   const todoNameRef = useRef();
   //inputの中にref={todoNameRef}を入れる
@@ -24,6 +21,7 @@ function App() {
     // setTodosで何かしら値を入れることでtodosが更新される　previousTodos(前のタスク)
     const uuid = uuidv4();
     // console.log(uuid);
+    if (name === "") return;
     setTodos((previousTodos) => {
       return [...previousTodos, { id: uuid, name: name, completed: false }];
     })
@@ -43,6 +41,12 @@ function App() {
     setTodos(newTodos); //ここでコピーした配列の変更点を新しい状態として更新する。
   }
 
+  const handleClear = () => {
+    // 完了していないタスク(completedがfalseのものだけ残して配列を更新する)
+    const newTodos = todos.filter((todo) => !todo.completed);
+    setTodos(newTodos);
+  }
+
   return (
     <>
       {/* todosという名前で{todos}(変数)をpropsとしてTodoListに渡すことができる。値はTodoListで受け取る。 */}
@@ -50,9 +54,12 @@ function App() {
       <input type="text" ref={todoNameRef} />
       {/* 追加するにはbuttonタグにonClickを足す */}
       <button onClick={handleAddTask}>タスクを追加</button>
-      <button>完了したタスクを削除</button>
+      <button onClick={handleClear}>完了したタスクを削除</button>
       <div>
-        残りのタスク:0
+        {/* filter() は Array インスタンスのメソッドで、指定された配列の中から指定された関数で実装されているテストに合格した要素だけを抽出したシャローコピーを作成します。 */}
+        {/* 今回のfilter関数はfalseになるものだけを残していく。trueがチェック済み(todo.completed)
+        false(!todo.completed) */}
+        残りのタスク:{ todos.filter((todo) => !todo.completed).length }
       </div>
     </>
   );
