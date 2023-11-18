@@ -76,6 +76,10 @@ h1 {
   .icon {
     margin-right: 5px;
   }
+
+  p {
+    cursor: pointer;
+  }
 }
 
 .fa-trash {
@@ -96,4 +100,14 @@ h1 {
 .edit-icon,
 .delete-icon {
   cursor: pointer;
+}
+
+.todo-info {
+  color: white;
+  h3 {
+    margin-bottom: 5px;
+  }
+  span {
+    color: rgb(164, 28, 171);
+  }
 }
